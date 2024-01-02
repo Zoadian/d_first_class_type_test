@@ -11,14 +11,13 @@ public:
 
 /// creates runtime typeinfo
 auto t(T)() {
-    import std.traits : fullyQualifiedName;
-    enum tis = fullyQualifiedName!T;
+    enum tis = T.mangleof;
     return type_t(T.sizeof, tis);
 }
 
 /// turns runtime typeinfo available at CTFE into a proper type
 template r(type_t xt) {
-    mixin("alias r = " ~ xt._ts ~";");
+    mixin("alias r = __traits(toType, `" ~ xt._ts ~"`);");
 }
 template r(type_t[] xts) {
     import std.algorithm;
