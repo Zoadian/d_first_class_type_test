@@ -19,12 +19,13 @@ auto t(T)() {
 template r(type_t xt) {
     mixin("alias r = __traits(toType, `" ~ xt._ts ~"`);");
 }
-template r(type_t[] xts) {
+
+/*template r(type_t[] xts) {
     import std.algorithm;
     import std.array;
     import std.meta;
     mixin("alias r = AliasSeq!(" ~ xts.map!(t=>t._ts).array.join(",") ~");");
-}
+}*/
 
 // use normal functions for type logic instead of template magic (basically a CTFE equivalant for type logic)
 auto greater(type_t a, type_t b) {
